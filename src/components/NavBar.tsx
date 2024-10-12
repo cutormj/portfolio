@@ -28,7 +28,7 @@ const NavBar: React.FC<{ user: User }> = ({ user }) => {
     <Navbar>
       <NavbarBrand>
         {/* <AcmeLogo /> */}
-        <p className="font-bold text-inherit">Treasure Keepsakes</p>
+        <p className="font-bold text-inherit">Admin</p>
       </NavbarBrand>
 
       {/* <NavbarContent className="hidden sm:flex gap-4" justify="center">

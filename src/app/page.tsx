@@ -4,6 +4,7 @@ import React from 'react';
 import { getWebsite } from '@/actions/website-action'; // Import your getWebsite function
 import WebsiteDisplay from '@/components/WebsiteDisplay'; // Import your WebsiteDisplay component
 import SampleTheme from '@/components/SampleTheme'; // Import your SampleTheme component
+import SocialLogins from '@/components/SocialLogins';
 
 
 export default async function Home() {
@@ -15,7 +16,8 @@ export default async function Home() {
       {/* <span>Treasure Keepsakes</span> */}
       
       {/* Use the WebsiteDisplay component to render the website data */}
-      <WebsiteDisplay websites={websites} />
+      {/* <WebsiteDisplay websites={websites} /> */}
+      <SocialLogins/>
 
       {/* Other components or UI elements */}
     </div>

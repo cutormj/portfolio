@@ -1,16 +1,56 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '@/lib/mongo';
-import User from "@/models/user-model"
+import User from '@/models/user-model';
 
-export async function GET() {
+export async function GET(req: NextApiRequest, res: NextApiResponse) {
   await dbConnect();
-  const users = await User.find({});
-  return NextResponse.json({ success: true, data: users });
+
+  try {
+    const users = await User.find({});
+    res.status(200).json({ success: true, data: users });
+  } catch (error) {
+    res.status(400).json({ success: false });
+  }
 }
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextApiRequest, res: NextApiResponse) {
   await dbConnect();
-  const body = await req.json();
-  const user = await User.create(body);
-  return NextResponse.json({ success: true, data: user });
+
+  try {
+    const user = await User.create(req.body);
+    res.status(201).json({ success: true, data: user });
+  } catch (error) {
+    res.status(400).json({ success: false });
+  }
+}
+
+export async function PUT(req: NextApiRequest, res: NextApiResponse) {
+  await dbConnect();
+
+  try {
+    const user = await User.findByIdAndUpdate(req.body.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    if (!user) {
+      return res.status(400).json({ success: false });
+    }
+    res.status(200).json({ success: true, data: user });
+  } catch (error) {
+    res.status(400).json({ success: false });
+  }
+}
+
+export async function DELETE(req: NextApiRequest, res: NextApiResponse) {
+  await dbConnect();
+
+  try {
+    const deletedUser = await User.deleteOne({ _id: req.body.id });
+    if (!deletedUser) {
+      return res.status(400).json({ success: false });
+    }
+    res.status(200).json({ success: true, data: {} });
+  } catch (error) {
+    res.status(400).json({ success: false });
+  }
 }

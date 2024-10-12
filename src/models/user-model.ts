@@ -6,12 +6,7 @@ const userSchema = new mongoose.Schema({
   email:      { type: String, required: true },
   image:      { type: String  },
 
-  portfolios: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Portfolio",
-    }
-  ],
+  bio:        { type: String }
 
 })
 
